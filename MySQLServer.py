@@ -13,15 +13,17 @@ def create_database(alx_book_store):
         if connection.is_connected():
             # Create a cursor object to execute SQL commands
             mycursor = connection.cursor()
-            # Create database if it doesn't already exist
-            mycursor.execute(f"CREATE DATABASE IF NOT EXISTS {alx_book_store}")  
+            
+            # Create database if it doesn't already exist, with database name in quotes
+            create_db_query = f"CREATE DATABASE IF NOT EXISTS `{alx_book_store}`"
+            mycursor.execute(create_db_query)  # This line creates the database
             print(f"Database '{alx_book_store}' created successfully!")
     
     except Error as e:
         print(f"Error while connecting to MySQL: {e}")
     
     finally:
-       
+        
         if 'mycursor' in locals():  
             mycursor.close()
         if connection.is_connected():
@@ -29,4 +31,4 @@ def create_database(alx_book_store):
             print("MySQL connection is closed.")
 
 # Call the function to create the database
-create_database('alx_book_store') 
+create_database('alx_book_store')  
